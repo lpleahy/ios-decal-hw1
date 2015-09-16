@@ -11,45 +11,46 @@ import UIKit
 
 class Foo {
     
-    var wordA : String!
-    var wordB : String!
+    var wordA : String?
+    var wordB : String?
     
     init (words: [String?]) {
-        wordA = words[0]?
-        wordB = words[1]?
+        wordA = words[0]!
+        wordB = words[1]!
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q1 HERE]
+//: Given that words is a optional array of strings, we should probably declare the vars we're making as optionals as well (as they could be nil). Since the array is of optionals, we have to unwrap it in order to obtain the value. Therefore, we use the '!' after the array indexing in order to extract the string/nil stored there.
     
 
     
 //: ## Q2: Variable Types and Function Types
 //: Why does the compiler dislike the for loop? Also, what should we return?
     
-    func arePalindromes(words: [String]) -> Bool! {
+    static func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
         var numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
         
-        return nil
+        return true
     }
     
-//: [EXPLAIN YOUR ANSWER TO Q2 HERE]
+//: We use 'let' for the variable 'i'. This makes it a constant and therefore it cannot be changed. Changed the declaration to 'var'. 
+//: Changed return type to 'Bool' as the '!' is redundant. Furthermore, changed the last case to 'true' as we should be evaluating to a boolean value. Also, it doesn't make sense to return 'nil' as that is not relevant when we know the answer. Additionally we declare the method as static as we want to use it without an instance.
     
     
     
 //: ## Q3: More functions, and object initialization
 //: The method should be returning true or false -- what's wrong?
 //: Are we initializing the dictionary correctly?
-    func isAnagram(wordA: String, wordB: String) -> Bool? {
-        var countLetters : [Character : Int]
-        var lenA = wordA.characters.count
-        var lenB = wordB.characters.count
+    static func isAnagram(wordA: String, wordB: String) -> Bool {
+        var countLetters = [Character : Int]()
+        let lenA = wordA.characters.count
+        let lenB = wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -81,11 +82,11 @@ class Foo {
             }
         }
         
-        return nil
+        return true
     }
 }
 
-//: [EXPLAIN YOUR ANSWER TO Q3 HERE]
+//: The dictionary was not initialized properly, it was changed to instatiate a new dictionary of type 'Character : Int'. Additionally, we declare the method as static as we want to use it without an instance.
 
 
 //: **Do not** change anything below.
@@ -97,4 +98,3 @@ var palindromes = ["hih", "racecar", "mom", "wow"]
 var notPalindromes = ["gene", "shawn", "hello"]
 Foo.arePalindromes(palindromes)
 Foo.arePalindromes(notPalindromes)
-
